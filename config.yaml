@@ -1,0 +1,25 @@
+# マルチissue駆動開発 設定ファイル (kiro-hive)
+repository:
+  url: "https://github.com/your-org/your-repo.git"
+  # owner/repo 形式（gh cli用）
+  owner_repo: "your-org/your-repo"
+  default_branch: "main"
+  clone_base_dir: "./repos"
+
+branching:
+  # ブランチ命名規則: feature/issue-{issue_number}-{short_description}
+  prefix: "feature/issue"
+
+pull_request:
+  base_branch: "main"
+
+github_issues:
+  # 取得対象のフィルタ
+  # ラベルでフィルタ（カンマ区切りで複数指定可）
+  labels: "multi-agent"
+  # ステータス: open / closed / all
+  state: "open"
+  # マイルストーンでフィルタ（任意）
+  milestone: ""
+  # 最大取得数
+  limit: 10

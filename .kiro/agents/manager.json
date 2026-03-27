@@ -1,0 +1,54 @@
+{
+  "name": "manager",
+  "description": "kiro-hive マネージャエージェント。GitHub Issueを取得し、サブマネージャに委譲して並列開発を統括する。",
+  "prompt": "file://../../prompts/manager-prompt.md",
+  "model": "claude-sonnet-4",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "subagent"
+  ],
+  "allowedTools": [
+    "read",
+    "shell",
+    "subagent"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["sub-manager"],
+      "trustedAgents": ["sub-manager"]
+    },
+    "shell": {
+      "allowedCommands": [
+        "cat *",
+        "ls *",
+        "find *",
+        "bash scripts/*",
+        "git *",
+        "gh issue *",
+        "gh pr *"
+      ]
+    },
+    "write": {
+      "allowedPaths": [
+        "docs/**",
+        "repos/**"
+      ]
+    }
+  },
+  "resources": [
+    "file://config.yaml"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "gh issue list --repo $(grep 'owner_repo:' config.yaml | sed 's/.*: *\"\\(.*\\)\"/\\1/') --state open --limit 5 --json number,title 2>/dev/null || echo 'gh cli not configured'"
+      },
+      {
+        "command": "ls -d repos/repo-clone-* 2>/dev/null || echo 'No repo clones found'"
+      }
+    ]
+  },
+  "welcomeMessage": "🐝 kiro-hive マネージャです。GitHub Issueを取得して並列開発を開始します。"
+}

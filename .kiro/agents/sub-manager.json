@@ -1,0 +1,52 @@
+{
+  "name": "sub-manager",
+  "description": "kiro-hive サブマネージャエージェント。issue単位の開発を管理し、要件定義からPR作成までを統括する。",
+  "prompt": "file://../../prompts/sub-manager-prompt.md",
+  "model": "claude-sonnet-4",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "subagent",
+    "code"
+  ],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "subagent",
+    "code"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["worker"],
+      "trustedAgents": ["worker"]
+    },
+    "write": {
+      "allowedPaths": [
+        "repos/**"
+      ]
+    },
+    "shell": {
+      "allowedCommands": [
+        "cat *",
+        "ls *",
+        "find *",
+        "git *",
+        "npm *",
+        "yarn *",
+        "pnpm *",
+        "make *",
+        "cargo *",
+        "go *",
+        "python *",
+        "pip *",
+        "gh pr create *",
+        "gh issue *"
+      ]
+    }
+  },
+  "resources": [
+    "file://config.yaml"
+  ]
+}

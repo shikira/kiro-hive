@@ -1,0 +1,47 @@
+{
+  "name": "worker",
+  "description": "kiro-hive ワーカーエージェント。実装・テスト・ドキュメント作成を行う。",
+  "prompt": "file://../../prompts/worker-prompt.md",
+  "model": "claude-sonnet-4",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "code"
+  ],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "code"
+  ],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "repos/**"
+      ]
+    },
+    "shell": {
+      "allowedCommands": [
+        "cat *",
+        "ls *",
+        "find *",
+        "git *",
+        "npm *",
+        "yarn *",
+        "pnpm *",
+        "make *",
+        "cargo *",
+        "go *",
+        "python *",
+        "pip *",
+        "gh pr create *",
+        "gh issue *",
+        "npx *",
+        "pytest *",
+        "go test *",
+        "cargo test *"
+      ]
+    }
+  }
+}
