@@ -1,8 +1,8 @@
 # マルチissue駆動開発 設定ファイル (kiro-hive)
 repository:
-  url: "https://github.com/your-org/your-repo.git"
+  url: "https://github.com/shikira/ollama-translator.git"
   # owner/repo 形式（gh cli用）
-  owner_repo: "your-org/your-repo"
+  owner_repo: "shikira/ollama-translator"
   default_branch: "main"
   clone_base_dir: "./repos"
 
@@ -16,7 +16,7 @@ pull_request:
 github_issues:
   # 取得対象のフィルタ
   # ラベルでフィルタ（カンマ区切りで複数指定可）
-  labels: "multi-agent"
+  labels: "kiro-hive"
   # ステータス: open / closed / all
   state: "open"
   # マイルストーンでフィルタ（任意）

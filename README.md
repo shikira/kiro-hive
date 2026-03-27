@@ -61,21 +61,21 @@ repository:
   default_branch: "main"
 
 github_issues:
-  labels: "multi-agent"    # このラベルが付いたissueを対象にする
+  labels: "kiro-hive"    # このラベルが付いたissueを対象にする
   state: "open"
   limit: 10
 ```
 
 ### 2. GitHub Issueを作成
 
-対象リポジトリにissueを作成し、`config.yaml` で指定したラベル（デフォルト: `multi-agent`）を付与します。
+対象リポジトリにissueを作成し、`config.yaml` で指定したラベル（デフォルト: `kiro-hive`）を付与します。
 
 ```bash
 # issueの作成例
 gh issue create --repo your-org/your-repo \
   --title "ユーザ認証機能の追加" \
   --body "## 概要\nメールアドレスとパスワードによる認証機能を追加する\n\n## 受け入れ基準\n- ログイン/ログアウトが動作すること" \
-  --label "multi-agent"
+  --label "kiro-hive"
 ```
 
 ### 3. リポジトリクローンを準備
