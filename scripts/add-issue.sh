@@ -23,7 +23,19 @@ ISSUE_NUMBER="$1"
 
 get_config() {
   local key="$1"
-  grep "^  ${key}:" "$CONFIG_FILE" 2>/dev/null | sed 's/.*: *"\(.*\)"/\1/' | sed "s/.*: *'\(.*\)'/\1/" | sed 's/.*: *//'
+  local line
+  line=$(grep "^  ${key}:" "$CONFIG_FILE" 2>/dev/null || true)
+  if [ -z "$line" ]; then
+    echo ""
+    return
+  fi
+  if echo "$line" | grep -q '"'; then
+    echo "$line" | sed 's/^[^"]*"\([^"]*\)".*/\1/'
+  elif echo "$line" | grep -q "'"; then
+    echo "$line" | sed "s/^[^']*'\\([^']*\\)'.*/\\1/"
+  else
+    echo "$line" | sed 's/^  [a-z_]*: *//'
+  fi
 }
 
 REPO_URL=$(get_config "url")

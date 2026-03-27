@@ -16,7 +16,22 @@ REPOS_DIR="./repos"
 
 get_config() {
   local key="$1"
-  grep "^  ${key}:" "$CONFIG_FILE" 2>/dev/null | sed 's/.*: *"\(.*\)"/\1/' | sed "s/.*: *'\(.*\)'/\1/" | sed 's/.*: *//'
+  local line
+  line=$(grep "^  ${key}:" "$CONFIG_FILE" 2>/dev/null || true)
+  if [ -z "$line" ]; then
+    echo ""
+    return
+  fi
+  # ダブルクォート内の値を取得
+  if echo "$line" | grep -q '"'; then
+    echo "$line" | sed 's/^[^"]*"\([^"]*\)".*/\1/'
+  # シングルクォート内の値を取得
+  elif echo "$line" | grep -q "'"; then
+    echo "$line" | sed "s/^[^']*'\\([^']*\\)'.*/\\1/"
+  # クォートなしの値を取得（最初のコロン+スペース以降）
+  else
+    echo "$line" | sed 's/^  [a-z_]*: *//'
+  fi
 }
 
 REPO_URL=$(get_config "url")
